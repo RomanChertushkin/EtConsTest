@@ -1,16 +1,8 @@
-
 <template>
-    <div class="input--container">
-        <label for="username">Url:</label>
-        <InputText 
-        v-if="!state" 
-        id="inputUrl" 
-        ref="inputUrl"
-        :placeholder="props.placeholder"
-        @blur="fetchPageTitle" 
-        @keyup.enter="fetchPageTitle" 
-        v-model="value" 
-        aria-describedby="url-edit" />
+    <div class="input--container" :style="{ width: props.width }">
+        <label for="username">Url link component:</label>
+        <InputText v-if="!state" id="inputUrl" ref="inputUrl" :placeholder="props.placeholder" @blur="fetchPageTitle"
+            @keyup.enter="fetchPageTitle" v-model="value" aria-describedby="url-edit" />
         <div v-else>
             <a :href="value">
                 {{ urlTitle }}
@@ -23,15 +15,17 @@
 <script setup lang="ts">
 import InputText from 'primevue/inputtext';
 import { ref } from 'vue';
-import { defineProps, withDefaults, defineEmits } from 'vue';
+import { withDefaults, defineEmits } from 'vue';
 
 interface Props {
-  placeholder: string;
-  modelValue?: string;
+    placeholder: string;
+    modelValue?: string;
+    width?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     placeholder: 'https://',
+    width: '500px'
 });
 
 const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
@@ -84,16 +78,6 @@ const changeState = (): void => {
     label {
         font-weight: 600;
     }
-
-    #inputUrl {
-        border: solid var(--color-border) 1px;
-        padding: 5px;
-        background-color: var(--color-background-soft);
-
-        &:hover {
-            border: solid var(--color-border--input-hover) 1px; 
-        }
-    }
 }
 
 .icon--paddings {
@@ -101,4 +85,3 @@ const changeState = (): void => {
     cursor: pointer;
 }
 </style>
-

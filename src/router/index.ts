@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import UrlInputView from '../views/UrlInputView.vue'
+import TimePickerView from '../views/TimePickerView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,9 +11,9 @@ const router = createRouter({
       component: UrlInputView
     },
     {
-      path: '/url',
-      name: 'url',
-      component: UrlInputView
+      path: '/timePicker',
+      name: 'Time Piker',
+      component: TimePickerView
     }
   ]
 })
