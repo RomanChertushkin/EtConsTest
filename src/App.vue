@@ -7,7 +7,9 @@ import RouterLinks from './components/RouterLinks.vue'
     <RouterLinks />
   </header>
 
-  <RouterView class="page-container"/>
+  <main class="page-container">
+    <RouterView/>
+  </main>
 </template>
 
 <style scoped>
