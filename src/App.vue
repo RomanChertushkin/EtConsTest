@@ -7,7 +7,7 @@ import RouterLinks from './components/RouterLinks.vue'
     <RouterLinks />
   </header>
 
-  <RouterView />
+  <RouterView class="page-container"/>
 </template>
 
 <style scoped>
@@ -17,5 +17,9 @@ header {
   display: flex;
   align-items: center;
   background-color: green;
+}
+
+.page-container {
+  margin: 10px;
 }
 </style>

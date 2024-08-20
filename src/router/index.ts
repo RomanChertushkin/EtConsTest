@@ -6,7 +6,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'urlInput',
+      name: 'Url Input',
       component: UrlInputView
     },
     {

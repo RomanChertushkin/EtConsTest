@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-
+import EditableUrlInput from '../components/EditableUrlInput.vue';
 </script>
 
 <template>
-<div>
-    
-</div>
+  <EditableUrlInput />
 </template>
