@@ -8,6 +8,11 @@ const router = createRouter({
       path: '/',
       name: 'urlInput',
       component: UrlInputView
+    },
+    {
+      path: '/url',
+      name: 'url',
+      component: UrlInputView
     }
   ]
 })

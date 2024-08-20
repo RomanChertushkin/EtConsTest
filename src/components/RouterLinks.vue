@@ -29,8 +29,6 @@ export default defineComponent({
             }))
         );
 
-        console.log(links)
-
         return {
             links
         };
@@ -39,7 +37,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-ul {
-    
+nav ul {
+  list-style-type: none;
+  padding: 0; 
+  margin: 0; 
+  display: flex; 
+  gap: 0px; 
 }
+
+nav li {
+  margin: 0; 
+}
+
+nav li a {
+  text-decoration: none; 
+  color: white; 
+  padding: 5px 12px; 
+  border-radius: 4px; 
+  transition: background-color 0.3s; 
+}
+
+nav li a:hover {
+  background-color: #ddd; 
+  color: black;
+}
+
 </style>
