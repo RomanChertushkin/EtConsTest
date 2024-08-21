@@ -1,36 +1,60 @@
 <template>
-    <Calendar v-model="templatedisplay" showIcon iconDisplay="button" timeOnly inputId="templatedisplay">
-        <template #footer>
-            <hr />
-            <div class="buttons--container">
-                <span @click="changeToToday">Сегодня</span>
-                <span @click="clearModel">Очистить</span>
-            </div>
-        </template>
-    </Calendar>
+    <div>
+        <Calendar v-model="internalValue" timeOnly iconDisplay="button" showIcon hourFormat="24">
+            <template #footer>
+                <hr />
+                <div class="buttons--container">
+                    <span @click="changeToToday">Сегодня</span>
+                    <span @click="clearModel">Очистить</span>
+                </div>
+            </template>
+
+        </Calendar>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch, defineEmits, defineProps, onMounted } from 'vue';
 import Calendar from 'primevue/calendar';
 
-const templatedisplay = ref<string>('');
+const props = defineProps({
+    modelValue: {
+        type: String,
+        required: true
+    }
+});
+
+const emit = defineEmits(['update:modelValue']);
+
+const internalValue = ref<Date | null>(null);
+
+watch(internalValue, (newValue: Date | null) => {
+    if (internalValue.value == null) {
+        emit('update:modelValue', null);
+        return;
+    }
+
+    const hours = newValue?.getHours().toString().padStart(2, '0');
+    const minutes = newValue?.getMinutes().toString().padStart(2, '0');
+
+    emit('update:modelValue', `${hours}:${minutes}`);
+});
 
 const changeToToday = (): void => {
-    const now = new Date();
-    const hours = now.getHours();
-    let minutes = now.getMinutes();
-
-    if (minutes < 10) {
-        templatedisplay.value = `${hours}:0${minutes}`;
-    } else {
-        templatedisplay.value = `${hours}:${minutes}`;
-    }
+    internalValue.value = new Date();
 }
 
 const clearModel = (): void => {
-    templatedisplay.value = '00:00';
+    internalValue.value = null;
 }
+
+onMounted(() => {
+    const date = new Date();
+    const [hours, minutes] = props.modelValue.split(':').map(Number);
+    date.setHours(hours, minutes, 0, 0);
+
+    internalValue.value = date;
+})
 </script>
 
 <style scoped lang="scss">
