@@ -1,7 +1,14 @@
 <template>
-    <MultiSelect v-model="selectedCities" :options="cities" optionLabel="name" placeholder="Select Cities">
+    <MultiSelect class="multi--select" v-model="selectedCities" :options="cities" optionLabel="name"
+        :showToggleAll="false" placeholder="Select Cities">
         <template #header>
-            <i class="remove--icon pi pi-times" v-if="selectedCities.length > 0" @click="clearSelect"></i>
+            <div class="p-multiselect-header">
+                <Checkbox v-model="checked" @update:modelValue="checkedAll" :binary="true" />
+                <button type="button" class="p-multiselect-close" v-show="selectedCities.length > 0"
+                    @click="clearSelect">
+                    <span class="pi pi-times"></span>
+                </button>
+            </div>
         </template>
     </MultiSelect>
 </template>
@@ -9,11 +16,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import MultiSelect from 'primevue/multiselect';
+import Checkbox from 'primevue/checkbox';
 
 interface Cities {
     name: string,
     code: string
 }
+
+const checked = ref<boolean>(false);
 
 const selectedCities = ref<Cities[]>([]);
 const cities = ref([
@@ -26,14 +36,24 @@ const cities = ref([
 
 const clearSelect = (): void => {
     selectedCities.value = [];
+    checked.value = false;
+}
+
+const checkedAll = (): void => {
+    if (checked.value) {
+        selectedCities.value = cities.value;
+    } else {
+        clearSelect()
+    }
 }
 </script>
 
 <style scoped lang="scss">
-.remove--icon {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
+.hidden--timesbtn {
+    display: hidden;
+}
+
+.multi--select {
+    width: 200px;
 }
 </style>
