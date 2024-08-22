@@ -3,6 +3,7 @@ import UrlInputView from '../views/UrlInputView.vue'
 import TimePickerView from '../views/TimePickerView.vue'
 import MultiSelectComponent from '@/components/MultiSelectComponent.vue'
 import TableComponent from '@/components/TableComponent.vue'
+import TableProductsView from '@/views/TableProductsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       path: '/tableComponent',
       name: 'Table Component',
       component: TableComponent
+    },
+    {
+      path: '/tableComponentWhithProducts',
+      name: 'Table Component Products',
+      component: TableProductsView
     }
   ]
 })
